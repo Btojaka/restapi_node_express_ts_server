@@ -1,0 +1,25 @@
+{
+  "name": "rest_api_node_ts_server",
+  "version": "1.0.0",
+  "description": "REST API's with Express and Typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -x ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Btojaka/restapi_node_express_ts_server.git"
+  },
+  "author": "Btojaka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Btojaka/restapi_node_express_ts_server/issues"
+  },
+  "homepage": "https://github.com/Btojaka/restapi_node_express_ts_server#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}
