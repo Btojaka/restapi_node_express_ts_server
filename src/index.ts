@@ -1,7 +1,6 @@
-import {sumar} from './server';
+import server from "./server";
 
-console.log("desde indexe.ts");
-console.log("desde 3.ts");
-
-sumar(); // 5
+server.listen(4000, () => {
+    console.log("Server is running on http://localhost:4000");
+    });
 

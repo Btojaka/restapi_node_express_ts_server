@@ -2,6 +2,12 @@
     "compilerOptions": {
         "outDir": "./dist",
         "rootDir": "./src",
-    }
+        "lib": ["esnext", "dom"],  // Añado "dom" para eliminar errores con hammerjs
+        "strict": false,
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "declaration": true,
+    },
+    "include": ["src/**/*.ts"],
 }
   
