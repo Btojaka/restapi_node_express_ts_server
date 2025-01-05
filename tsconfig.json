@@ -3,10 +3,15 @@
         "outDir": "./dist",
         "rootDir": "./src",
         "lib": ["esnext", "dom"],  // Añado "dom" para eliminar errores con hammerjs
+        "target": "ESNext",
+        "moduleResolution": "nodenext",
+        "module": "NodeNext",
         "strict": false,
         "sourceMap": true,
         "esModuleInterop": true,
         "declaration": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
     },
     "include": ["src/**/*.ts"],
 }
