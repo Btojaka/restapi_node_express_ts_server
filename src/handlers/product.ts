@@ -48,7 +48,7 @@ export const createProduct = async (
   try {
     // Create a new product and save it to the database
     const product = await Product.create(req.body);
-    return res.json({ data: product });
+    return res.status(201).json({ data: product });
   } catch (error) {
     console.log(colors.bgRed(`Error: ${error}`));
     return res.status(500).json({ error: "Internal server error" });

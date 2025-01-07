@@ -9,11 +9,11 @@ async function connectDB() {
   try {
     await db.authenticate();
     db.sync(); // Sync all models that are not already in the database AUTOMATICALLY when the server starts
-    console.log(
-      colors.bgGreen("Connection has been established successfully.")
-    );
+    // console.log(
+    //   colors.bgGreen("Connection has been established successfully.")
+    // );
   } catch (error) {
-    console.log("Error is: ", error);
+    // console.log("Error is: ", error);
     console.error(colors.bgRed.italic("Unable to connect to the database"));
   }
 }
@@ -27,5 +27,10 @@ const server = express();
 server.use(express.json());
 
 server.use("/api/products", router);
+
+// test the server
+server.get("/api", (req, res) => {
+  res.json({ message: "Welcome to the API" });
+});
 
 export default server;
