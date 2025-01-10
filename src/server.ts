@@ -1,5 +1,8 @@
 import express from "express";
 import colors from "colors";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec, { swaggerUiOptions } from "./config/swagger";
+import path from "path";
 import router from "./router";
 import db from "./config/db";
 
@@ -28,9 +31,14 @@ server.use(express.json());
 
 server.use("/api/products", router);
 
-// test the server
-server.get("/api", (req, res) => {
-  res.json({ message: "Welcome to the API" });
-});
+// Docs
+server.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, swaggerUiOptions)
+);
+
+// Serve static files from the "assets" directory
+server.use("/assets", express.static(path.resolve(__dirname, "..", "assets")));
 
 export default server;

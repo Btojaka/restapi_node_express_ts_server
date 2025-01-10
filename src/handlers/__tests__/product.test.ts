@@ -215,7 +215,7 @@ describe("DELETE /api/products/:id", () => {
     const res = await request(server).delete(`/api/products/${productId}`);
     expect(res.status).toEqual(200);
     expect(res.body).toHaveProperty("data");
-    expect(res.body.data).toBe("Deleted product");
+    expect(res.body.data).toBe("Product deleted");
 
     expect(res.status).not.toEqual(404);
     expect(res.body).not.toHaveProperty("error");
