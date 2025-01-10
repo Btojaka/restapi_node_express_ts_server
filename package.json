@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest --detectOpenHandles",
     "dev": "nodemon -x ts-node src/index.ts",
+    "test:coverage" : "npm run pretest && jest --detectOpenHandles --coverage",
     "pretest": "ts-node ./src/data --clear"
   },
   "repository": {

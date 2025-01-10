@@ -104,6 +104,18 @@ describe("GET /api/products/:id", () => {
 // PUT /api/products/:id tests
 
 describe("PUT /api/products/:id", () => {
+  it("should return 400 if product id is not valid", async () => {
+    const productId = "hello";
+    const res = await request(server).put(`/api/products/${productId}`).send({
+      name: "Mouse - testing uploaded put",
+      price: 65,
+      availability: false,
+    });
+    expect(res.status).toEqual(400);
+    expect(res.body).toHaveProperty("errors");
+    expect(res.body.errors[0].msg).toBe("Incorrect value");
+    expect(res.body.errors[1].msg).toBe("Id must be greater than 0");
+  });
   // validation messages
   it("should display validation errors when send some/all empty atributtes", async () => {
     const productId = 1;
@@ -129,5 +141,83 @@ describe("PUT /api/products/:id", () => {
     expect(res.status).toEqual(404);
     expect(res.body).toHaveProperty("error");
     expect(res.body.error).toBe("Product not found");
+
+    expect(res.status).not.toEqual(200);
+    expect(res.body).not.toHaveProperty("data");
+  });
+
+  it("should return 200 if product exists and has been updated", async () => {
+    const productId = 1;
+    const res = await request(server).put(`/api/products/${productId}`).send({
+      name: "Monitor - testing uploaded put",
+      price: 250,
+      availability: true,
+    });
+    expect(res.status).toEqual(200);
+    expect(res.body).toHaveProperty("data");
+
+    expect(res.status).not.toEqual(400);
+    expect(res.body).not.toHaveProperty("error");
+  });
+});
+
+// PATCH /api/products/:id tests (update availability to opposite)
+describe("PATCH /api/products/:id", () => {
+  it("should return 400 if product id is not valid", async () => {
+    const productId = "hello";
+    const res = await request(server).patch(`/api/products/${productId}`).send({
+      availability: false,
+    });
+    expect(res.status).toEqual(400);
+    expect(res.body).toHaveProperty("errors");
+    expect(res.body.errors[0].msg).toBe("Incorrect value");
+    expect(res.body.errors[1].msg).toBe("Id must be greater than 0");
+  });
+  it("should return 404 if product is not found", async () => {
+    const productId = 100;
+    const res = await request(server).patch(`/api/products/${productId}`);
+    expect(res.status).toEqual(404);
+    expect(res.body).toHaveProperty("error");
+    expect(res.body.error).toBe("Product not found");
+  });
+  it("should return 200 if product exists and has been updated", async () => {
+    const productId = 1;
+    const res = await request(server).patch(`/api/products/${productId}`);
+    expect(res.status).toEqual(200);
+    expect(res.body).toHaveProperty("data");
+    expect(res.body.data.availability).toBe(false);
+
+    expect(res.status).not.toEqual(400);
+    expect(res.body).not.toHaveProperty("error");
+  });
+});
+
+// DELETE /api/products/:id tests
+
+describe("DELETE /api/products/:id", () => {
+  it("should return 404 if product is not found", async () => {
+    const productId = 100;
+    const res = await request(server).delete(`/api/products/${productId}`);
+    expect(res.status).toEqual(404);
+    expect(res.body).toHaveProperty("error");
+    expect(res.body.error).toBe("Product not found");
+  });
+  it("should return 400 if product id is not valid", async () => {
+    const productId = "hello";
+    const res = await request(server).delete(`/api/products/${productId}`);
+    expect(res.status).toEqual(400);
+    expect(res.body).toHaveProperty("errors");
+    expect(res.body.errors[0].msg).toBe("Incorrect value");
+    expect(res.body.errors[1].msg).toBe("Id must be greater than 0");
+  });
+  it("should return 200 if product exists and has been deleted", async () => {
+    const productId = 1;
+    const res = await request(server).delete(`/api/products/${productId}`);
+    expect(res.status).toEqual(200);
+    expect(res.body).toHaveProperty("data");
+    expect(res.body.data).toBe("Deleted product");
+
+    expect(res.status).not.toEqual(404);
+    expect(res.body).not.toHaveProperty("error");
   });
 });

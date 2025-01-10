@@ -5,7 +5,7 @@ import db from "./config/db";
 
 //Conect db
 
-async function connectDB() {
+export async function connectDB() {
   try {
     await db.authenticate();
     db.sync(); // Sync all models that are not already in the database AUTOMATICALLY when the server starts
@@ -14,7 +14,7 @@ async function connectDB() {
     // );
   } catch (error) {
     // console.log("Error is: ", error);
-    console.error(colors.bgRed.italic("Unable to connect to the database"));
+    console.log(colors.bgRed.italic("Unable to connect to the database"));
   }
 }
 // Call the function to connect to the database
