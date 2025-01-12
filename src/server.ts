@@ -1,5 +1,7 @@
 import express from "express";
 import colors from "colors";
+import cors, { CorsOptions } from "cors";
+import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec, { swaggerUiOptions } from "./config/swagger";
 import path from "path";
@@ -26,8 +28,26 @@ connectDB();
 // instantiate the server
 const server = express();
 
+// allow connections
+const corsOptions: CorsOptions = {
+  origin: function (origin, callback) {
+    console.log(origin);
+    if (origin === process.env.FRONTEND_URL) {
+      console.log("Connecion Allowed...");
+      callback(null, true);
+    } else {
+      console.log("Connecion rejected");
+      callback(new Error("CORS error"), false);
+    }
+  },
+};
+
+server.use(cors(corsOptions));
+
 // read json data in the body of the request without this line of code, the server will not be able to read the body of the request
 server.use(express.json());
+
+server.use(morgan("dev"));
 
 server.use("/api/products", router);
 
