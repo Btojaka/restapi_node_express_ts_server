@@ -18,7 +18,7 @@ class Product extends Model {
   })
   declare description: string;
   @Column({
-    type: DataType.DECIMAL(10, 2), // DECIMAL type with 10 digits and 2 decimal places INSTEAD OF FLOAT type
+    type: DataType.FLOAT, //DECIMAL(10, 2), // DECIMAL type with 10 digits and 2 decimal places INSTEAD OF FLOAT type
     allowNull: false,
   })
   declare price: number;
